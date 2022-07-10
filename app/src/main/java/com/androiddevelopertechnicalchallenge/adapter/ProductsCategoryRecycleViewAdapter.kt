@@ -49,7 +49,6 @@ class ProductsCategoryRecycleViewAdapter :
         position: Int
     ) {
         holder.binding.categoryItemTextView.text = category[position]
-        holder.binding.categoryItemTextView.isChecked = true
     }
 
     override fun getItemCount(): Int {
