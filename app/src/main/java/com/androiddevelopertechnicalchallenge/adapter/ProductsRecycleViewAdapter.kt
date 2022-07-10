@@ -47,5 +47,8 @@ class ProductsRecycleViewAdapter : RecyclerView.Adapter<ProductsRecycleViewAdapt
         val diffUtilResult = DiffUtil.calculateDiff(productsDiffUtil)
         products = newData.products
         diffUtilResult.dispatchUpdatesTo(this)
+
+//        products = newData.products
+//        notifyDataSetChanged()
     }
 }

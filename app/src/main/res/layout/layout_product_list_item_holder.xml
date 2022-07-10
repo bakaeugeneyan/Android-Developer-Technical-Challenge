@@ -13,7 +13,8 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/itunesRowLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        onProductsHolderClickListener="@{state}">
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/materialCardView"
@@ -38,7 +39,7 @@
                     android:layout_width="200dp"
                     android:layout_height="160dp"
                     android:scaleType="centerCrop"
-                    app:loadImageFromUrl="@{state.images[0]}"
+                    app:loadImageFromUrl="@{state.thumbnail}"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"

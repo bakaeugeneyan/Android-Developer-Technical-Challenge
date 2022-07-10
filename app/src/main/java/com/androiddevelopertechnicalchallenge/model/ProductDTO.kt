@@ -1,8 +1,11 @@
 package com.androiddevelopertechnicalchallenge.model
 
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.android.parcel.Parcelize
 
+@Parcelize
 data class ProductDTO(
     @SerializedName("products")
     val products: List<Product> = listOf(),
@@ -12,7 +15,8 @@ data class ProductDTO(
     val skip: Int = 0,
     @SerializedName("limit")
     val limit: Int = 0
-) {
+) : Parcelable {
+    @Parcelize
     data class Product(
         @SerializedName("id")
         val id: Int = 0,
@@ -36,5 +40,5 @@ data class ProductDTO(
         val thumbnail: String = "",
         @SerializedName("images")
         val images: List<String> = listOf()
-    )
+    ) : Parcelable
 }

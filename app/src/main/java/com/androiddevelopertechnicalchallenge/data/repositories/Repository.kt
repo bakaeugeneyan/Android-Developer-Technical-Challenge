@@ -1,4 +1,4 @@
-package com.androiddevelopertechnicalchallenge.repositories
+package com.androiddevelopertechnicalchallenge.data.repositories
 
 import com.androiddevelopertechnicalchallenge.data.localdatasources.LocalDataSource
 import com.androiddevelopertechnicalchallenge.data.remotedatasources.RemoteDataSource

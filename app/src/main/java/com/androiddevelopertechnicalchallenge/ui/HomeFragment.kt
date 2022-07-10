@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.androiddevelopertechnicalchallenge.R
 import com.androiddevelopertechnicalchallenge.adapter.ProductsRecycleViewAdapter
@@ -16,6 +17,7 @@ import com.androiddevelopertechnicalchallenge.databinding.FragmentHomeBinding
 import com.androiddevelopertechnicalchallenge.utils.NetworkResult
 import com.androiddevelopertechnicalchallenge.viewmodel.MainViewModel
 import com.androiddevelopertechnicalchallenge.viewmodel.ProductsViewModel
+import kotlinx.coroutines.launch
 
 class HomeFragment : Fragment() {
 

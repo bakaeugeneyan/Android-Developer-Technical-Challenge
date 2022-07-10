@@ -4,12 +4,10 @@ import android.app.Application
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
-import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.androiddevelopertechnicalchallenge.data.entities.ProductEntity
 import com.androiddevelopertechnicalchallenge.model.ProductDTO
-import com.androiddevelopertechnicalchallenge.repositories.Repository
+import com.androiddevelopertechnicalchallenge.data.repositories.Repository
 import com.androiddevelopertechnicalchallenge.utils.NetworkResult
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -44,6 +42,10 @@ class MainViewModel @Inject constructor(
                 val response = repository.remote.getProductList(queries)
                 productResponse.value = handleProductResponse(response)
 
+                val products = productResponse.value!!.data
+                if (products != null) {
+                    offlineCacheItunes(products)
+                }
                 productResponse.value!!.data
 
             } catch (e: Exception) {
@@ -54,25 +56,30 @@ class MainViewModel @Inject constructor(
         }
     }
 
+    private fun offlineCacheItunes(productDTO: ProductDTO) {
+        val productEntity = ProductEntity(productDTO)
+        insertProducts(productEntity)
+    }
+
     private fun handleProductResponse(response: Response<ProductDTO>): NetworkResult<ProductDTO> {
-        when {
+        return when {
             response.message().toString().contains("timeout") -> {
-                return NetworkResult.Error("Timeout")
+                NetworkResult.Error("Timeout")
             }
             response.body()!!.products.isNullOrEmpty() -> {
-                return NetworkResult.Error("Product not found.")
+                NetworkResult.Error("Product not found.")
             }
             response.isSuccessful -> {
                 val productResponse = response.body()
-                return NetworkResult.Success(productResponse!!)
+                NetworkResult.Success(productResponse!!)
             }
             else -> {
-                return NetworkResult.Error(response.message())
+                NetworkResult.Error(response.message())
             }
         }
     }
 
-    private fun hasInternetConnection(): Boolean {
+    fun hasInternetConnection(): Boolean {
         val connectivityManager = getApplication<Application>().getSystemService(
             Context.CONNECTIVITY_SERVICE
         ) as ConnectivityManager
